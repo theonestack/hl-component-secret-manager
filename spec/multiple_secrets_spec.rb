@@ -12,6 +12,11 @@ describe 'compiled component secret-manager' do
 
   context "Resource" do
 
+    it "only creates the secrets defined in the test config" do
+      secrets = template["Resources"].select { |_, r| r["Type"] == "AWS::SecretsManager::Secret" }
+      expect(secrets.keys).to contain_exactly("AppCredentials", "ApiKey", "DbPassword")
+    end
+
     context "AppCredentials" do
       let(:resource) { template["Resources"]["AppCredentials"] }
 
@@ -98,7 +103,7 @@ describe 'compiled component secret-manager' do
       end
 
       it "exports the secret reference" do
-        expect(output["Export"]["Name"]).to eq({"Fn::Sub" => "${EnvironmentName}-secret-manager-app_credentials"})
+        expect(output["Export"]["Name"]).to eq({"Fn::Sub" => "${EnvironmentName}-secret-manager-app-credentials"})
       end
     end
 
@@ -110,7 +115,7 @@ describe 'compiled component secret-manager' do
       end
 
       it "exports the secret reference" do
-        expect(output["Export"]["Name"]).to eq({"Fn::Sub" => "${EnvironmentName}-secret-manager-api_key"})
+        expect(output["Export"]["Name"]).to eq({"Fn::Sub" => "${EnvironmentName}-secret-manager-api-key"})
       end
     end
 
@@ -122,7 +127,7 @@ describe 'compiled component secret-manager' do
       end
 
       it "exports the secret reference" do
-        expect(output["Export"]["Name"]).to eq({"Fn::Sub" => "${EnvironmentName}-secret-manager-db_password"})
+        expect(output["Export"]["Name"]).to eq({"Fn::Sub" => "${EnvironmentName}-secret-manager-db-password"})
       end
     end
 

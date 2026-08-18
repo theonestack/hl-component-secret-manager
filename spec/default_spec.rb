@@ -53,7 +53,7 @@ describe 'compiled component secret-manager' do
       end
 
       it "exports the secret reference" do
-        expect(output["Export"]["Name"]).to eq({"Fn::Sub" => "${EnvironmentName}-secret-manager-default_secret"})
+        expect(output["Export"]["Name"]).to eq({"Fn::Sub" => "${EnvironmentName}-secret-manager-default-secret"})
       end
     end
 
