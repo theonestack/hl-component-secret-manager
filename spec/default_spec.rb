@@ -12,6 +12,11 @@ describe 'compiled component secret-manager' do
 
   context "Resource" do
 
+    it "only creates the secrets defined in the test config" do
+      secrets = template["Resources"].select { |_, r| r["Type"] == "AWS::SecretsManager::Secret" }
+      expect(secrets.keys).to contain_exactly("DefaultSecret")
+    end
+
     context "DefaultSecret" do
       let(:resource) { template["Resources"]["DefaultSecret"] }
 
