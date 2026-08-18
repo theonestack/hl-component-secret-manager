@@ -81,7 +81,7 @@ secrets:
 
 For each secret defined in the configuration, an output is created with:
 - **Value**: The `Ref` of the secret (its ARN)
-- **Export Name**: `${EnvironmentName}-secret-manager-<secret_key>`
+- **Export Name**: `${EnvironmentName}-secret-manager-<secret-key>`, with underscores in the secret key replaced by hyphens (CloudFormation export names accept only alphanumerics, colons and hyphens)
 
 ## Testing
 

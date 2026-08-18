@@ -65,7 +65,8 @@ CloudFormation do
 
     Output(logical_name) {
       Value(Ref(logical_name))
-      Export FnSub("${EnvironmentName}-#{external_parameters[:component_name]}-#{secret_key}")
+      # Export names accept only alphanumerics, colons and hyphens
+      Export FnSub("${EnvironmentName}-#{external_parameters[:component_name]}-#{secret_key.gsub('_', '-')}")
     }
   end
 
